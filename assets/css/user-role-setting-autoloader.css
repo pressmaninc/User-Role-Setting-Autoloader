@@ -1,0 +1,11 @@
+.user-role-setting-autoloader-wrap .usa-import-dir-path-field th {
+    display: none !important;
+}
+.user-role-setting-autoloader-wrap .usa-import-dir-path-field td {
+    padding-top: 0px;
+    padding-left: 0px;
+}
+.user-role-setting-autoloader-wrap .usa-import-dir-path-field td input {
+    width: 100%;
+    max-width: 850px;
+}

@@ -1,20 +1,21 @@
-=== User Setting Autoloader ===
+=== User Role Setting Autoloader ===
 Contributors: pressmaninc,kazunao,hiroshisekiguchi,pmhirotaka
 Tags: pressman,pressmaninc,user,setting,export,import,role,capability,roles,capabilities
-Stable tag: 2.0.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires Wordpress: 5.4
-Tested up to: 5.4
+Requires Wordpress: 5.5.1
+Tested up to: 5.5.1
 
 == Features ==
-This plugin allows you to export and import user roles.
+This plugin allows you to export or import all users' roles and capabilities.
 
-== Actual Behavior ==
-*
-* You can export all the user's roles/capabilities as a json file.
-* You can import all the user's roles/capabilities from a json file when the plugin is activated.
-* You can change the import file directory
+* You can export all users' roles/capabilities as a json file to the file directory which you specify.
+* You can import all users' roles/capabilities automatically from a json file in the file directory.
+
+==  Note ==
+* You can change the file directory in the option page.
+* The json file only contains roles and capabilities. It does not contain any privacy data such as mail addresses.
 
 == Installation ==
 1.Download the plugin

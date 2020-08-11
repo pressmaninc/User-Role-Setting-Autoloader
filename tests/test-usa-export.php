@@ -2,7 +2,7 @@
 /**
  * Class USA_Export_TEST
  *
- * @package User_Setting_Autoloader
+ * @package User_Role_Setting_Autoloader
  */
 
 require_once ABSPATH . 'wp-admin/includes/ajax-actions.php';
