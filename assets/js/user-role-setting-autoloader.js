@@ -5,14 +5,10 @@ const USER_SETTING_AUTOLOADER = {
 	 *
 	 */
 	download: () => {
-		const formData = new FormData();
-		formData.append( 'action', USA_CONFIG.action );
-		formData.append( 'nonce', USA_CONFIG.nonce );
-
-		jQuery('<form/>', { action: USA_CONFIG.api, method: 'post' })
-			.append(jQuery('<input/>', { type: 'hidden', name: "action", value: USA_CONFIG.action }))
-			.append(jQuery('<input/>', { type: 'hidden', name: "nonce", value: USA_CONFIG.nonce }))
-			.appendTo(document.body)
+		jQuery( '<form/>', { action: USA_CONFIG.api, method: 'post' } )
+			.append( jQuery( '<input/>', { type: 'hidden', name: "action", value: USA_CONFIG.action } ) )
+			.append( jQuery( '<input/>', { type: 'hidden', name: "nonce", value: USA_CONFIG.nonce } ) )
+			.appendTo( document.body )
 			.submit()
 			.remove();
 	}
