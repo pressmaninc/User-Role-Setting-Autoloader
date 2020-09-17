@@ -33,7 +33,7 @@ class USA_Export {
 
 			$time = time();
 			header('Content-Disposition: attachment; filename="' . $time . USA_JSON_FILE_NAME . '"');
-			$data['data'] = json_encode( $roles_json );
+			$data = $roles_json;
 			$status = 200;
 		} else {
 			$data['data'] = 'Forbidden';

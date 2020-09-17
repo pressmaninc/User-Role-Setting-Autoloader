@@ -1,39 +1,20 @@
 const USER_SETTING_AUTOLOADER = {
 
 	/**
-   * Export all users roles.
-   *
-   * @returns {Promise<*>}
-   */
-	exportAllRolesCapabilities: async() => {
+	 * Download json file.
+	 *
+	 */
+	download: () => {
 		const formData = new FormData();
 		formData.append( 'action', USA_CONFIG.action );
 		formData.append( 'nonce', USA_CONFIG.nonce );
 
-		return await axios.post( USA_CONFIG.api, formData )
-			.catch( ( err ) => err.response );
-	},
-
-
-	/**
-   * Download json file.
-   *
-   * @param response
-   */
-	download: ( response ) => {
-		const disposition = response.headers['content-disposition'] || '';
-		const fileName = disposition.match( /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/ )[1] || ( new Date() )
-			.getTime() + 'user-setting.json';
-		const link = document.createElement( 'a' );
-		const blob = new Blob([ response.data.data ], { type: 'application/json' });
-
-		link.href = window.URL.createObjectURL( blob );
-		link.download = decodeURIComponent( fileName )
-			.replace( /"/g, '' );
-
-		document.body.appendChild( link );
-		link.click();
-		document.body.removeChild( link );
+		jQuery('<form/>', { action: USA_CONFIG.api, method: 'post' })
+			.append(jQuery('<input/>', { type: 'hidden', name: "action", value: USA_CONFIG.action }))
+			.append(jQuery('<input/>', { type: 'hidden', name: "nonce", value: USA_CONFIG.nonce }))
+			.appendTo(document.body)
+			.submit()
+			.remove();
 	}
 };
 
@@ -43,13 +24,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 	$exportBtn.on( 'click', async() => {
 		$exportBtn.prop( 'disabled', true );
-		const response = await USER_SETTING_AUTOLOADER.exportAllRolesCapabilities();
-
-		if ( 200 === response.status ) {
-			USER_SETTING_AUTOLOADER.download( response );
-		} else {
-			alert( response.data.data );
-		}
+		USER_SETTING_AUTOLOADER.download();
 		$exportBtn.prop( 'disabled', false );
 	});
 });
