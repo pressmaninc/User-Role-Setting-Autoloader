@@ -23,8 +23,7 @@ class USA_Export_TEST extends WP_Ajax_UnitTestCase {
 			unset( $e );
 		}
 
-		$response = json_decode( $this->_last_response, true );
-		$response_data = json_decode( $response['data'] );
+		$response_data = json_decode( $this->_last_response, true );
 		$result = json_decode( json_encode( $response_data ), true );
 
 		$expected = array();

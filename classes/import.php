@@ -46,7 +46,8 @@ class USA_Import {
 	 * @return array
 	 */
 	public function get_json_content() {
-		$import_dir_path = esc_attr( get_option( 'usa_import_dir_path', USA_IMPORT_DIR_PATH ) );
+		$import_dir_path = USA_IMPORT_DIR_PATH;
+		$import_dir_path = apply_filters( 'usa-import-dir', $import_dir_path );
 		$timestamp_on_import = get_option( 'usa_import_timestamp' );
 		$result = array(
 			'content' => '',

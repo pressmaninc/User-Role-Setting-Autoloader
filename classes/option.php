@@ -9,11 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class to display the setting screen for User Role Setting Autoloader.
  */
 class USA_Option {
-	/**
-	 * Holds the values to be used in the fields callbacks.
-	 */
-	private $options;
-
 	public function __construct() {
 		load_theme_textdomain( 'user-role-setting-autoloader', plugin_dir_path( plugin_dir_path( __FILE__ ) ) . 'lang' );
 		add_action( 'admin_enqueue_scripts', array( $this, 'my_enqueue' ) );
@@ -28,7 +23,6 @@ class USA_Option {
 		$handle = 'user-role-setting-autoloader';
 		wp_enqueue_style( $handle, plugin_dir_url( __FILE__ ) . '../assets/css/user-role-setting-autoloader.css', array(), '1.0' );
 
-		wp_enqueue_script( 'axios', 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js', array(), '', true );
 		wp_enqueue_script( $handle, plugin_dir_url( __FILE__ ) . '../assets/js/user-role-setting-autoloader.js', array('jquery'), '1.0', true );
 		wp_localize_script( $handle, 'USA_CONFIG', [
 			'api'    => admin_url( 'admin-ajax.php' ),
@@ -47,7 +41,7 @@ class USA_Option {
 				'User Role Setting Autoloader', // page_title
 				'User Role Setting Autoloader', // menu_title
 				'manage_options', // capability
-				'', // menu_slug
+				'user-role-setting-autoloader', // menu_slug
 				array( $this, 'display' ) // callback
 			);
 		}
@@ -57,7 +51,6 @@ class USA_Option {
 	 * Display page.
 	 */
 	public function display() {
-		$this->options = get_option( 'usa_import_dir_path', USA_IMPORT_DIR_PATH );
 ?>
 		<div class="user-role-setting-autoloader-wrap">
 			<!-- title -->
@@ -68,7 +61,6 @@ class USA_Option {
 				<?php
 				settings_fields( 'usa_group' );
 				do_settings_sections( 'usa_import_dir_path_section' );
-				submit_button();
 				?>
 			</form>
 
@@ -90,20 +82,9 @@ class USA_Option {
 	public function usa_setting() {
 		add_settings_section(
 			'usa-setting-import-dir-section-id',
-			'<h2>' . __( "Import Directory Path", "user-role-setting-autoloader" ) . '</h2>',
+			'<h2>' . __( "Import", "user-role-setting-autoloader" ) . '</h2>',
 			array( $this, 'print_usa_import_dir_path_info' ),
 			'usa_import_dir_path_section'
-		);
-
-		add_settings_field(
-			'usa-setting-import-dir-field-id',
-			'',
-			array( $this, 'print_usa_import_dir_path_field' ),
-			'usa_import_dir_path_section',
-			'usa-setting-import-dir-section-id',
-			array(
-				'class' => 'usa-import-dir-path-field'
-			)
 		);
 
 		register_setting(
@@ -118,31 +99,13 @@ class USA_Option {
 	 */
 	public function print_usa_import_dir_path_info() {
 		$info = __( "When the exported file is placed in the directory,all roles and capabilities is automatically imported.", "user-role-setting-autoloader" );
+		$info.= '<br>';
+		$info.= __( "This directory can be set up to be overwritten using a hook called 'usa-import-dir'.", "user-role-setting-autoloader" );
+		$path = USA_IMPORT_DIR_PATH;
+		$path = apply_filters( 'usa-import-dir', $path );
 		print "<p>$info</p>";
+		print "<p>$path</p>";
 	}
-
-	/**
-	 * Print usa dir path field.
-	 */
-	public function print_usa_import_dir_path_field() {
-		printf(
-			'<input type="text" id="usa-setting-import-dir-field-id" name="usa_import_dir_path" value="%s" />',
-			esc_attr( $this->options )
-		);
-	}
-
-	/**
-	 * Sanitize each setting field as needed.
-	 */
-	public function sanitize( $input )
-	{
-		$new_input = array();
-		if( $input )
-			$new_input = sanitize_text_field( $input );
-
-		return $new_input;
-	}
-
 }
 
 new USA_Option();
