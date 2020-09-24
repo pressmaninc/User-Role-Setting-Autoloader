@@ -82,7 +82,7 @@ class USA_Option {
 	public function usa_setting() {
 		add_settings_section(
 			'usa-setting-import-dir-section-id',
-			'<h2>' . __( "Import Directory Path", "user-role-setting-autoloader" ) . '</h2>',
+			'<h2>' . __( "Import", "user-role-setting-autoloader" ) . '</h2>',
 			array( $this, 'print_usa_import_dir_path_info' ),
 			'usa_import_dir_path_section'
 		);
@@ -99,6 +99,8 @@ class USA_Option {
 	 */
 	public function print_usa_import_dir_path_info() {
 		$info = __( "When the exported file is placed in the directory,all roles and capabilities is automatically imported.", "user-role-setting-autoloader" );
+		$info.= '<br>';
+		$info.= __( "This directory can be set up to be overwritten using a hook called 'usa-import-dir'.", "user-role-setting-autoloader" );
 		$path = USA_IMPORT_DIR_PATH;
 		$path = apply_filters( 'usa-import-dir', $path );
 		print "<p>$info</p>";
