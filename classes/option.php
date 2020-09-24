@@ -104,7 +104,7 @@ class USA_Option {
 		$path = USA_IMPORT_DIR_PATH;
 		$path = apply_filters( 'usa-import-dir', $path );
 		print "<p>$info</p>";
-		print "<p>$path</p>";
+		print "<p>" . wp_strip_all_tags( $path ) . "</p>";
 	}
 }
 
