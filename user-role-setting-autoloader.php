@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'USA_IMPORT_DIR_PATH',  ABSPATH . 'wp-content/usa-import' );
+define( 'USA_IMPORT_DIR_PATH',  plugin_dir_path( __FILE__ ) . 'import' );
 define( 'USA_JSON_FILE_NAME', '-user-role-setting.json' );
 
 // Require files.
